@@ -1,12 +1,13 @@
 <?php
 $host = 'localhost';
-$user = 'Username';
-$pass = 'Password';
-$db = 'Database';
+$user = 'username';
+$pass = 'password';
+$db = 'database';
 
 $mysqli = new mysqli($host,$user,$pass,$db) or die($mysqli->error);
+
 $mysqli->query('
-CREATE TABLE `userauth`.`users`
+CREATE TABLE IF NOT EXISTS `userauth`.`'$db'`
 (
     `id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(50) NOT NULL,
@@ -16,4 +17,5 @@ CREATE TABLE `userauth`.`users`
     `active` BOOL NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`)
 );') or die($mysqli->error);
+
 ?>

@@ -10,8 +10,8 @@ $options = [
 ];
 if ($_SESSION && $_SESSION['userid']) {
     session_destroy();
-    die("Logged Out!");
+    die(json_encode(["success" => "Logged Out"]));
 } else {
-    die("You are not logged in!");
+    die(json_encode(["error" => "Not Logged In"]));
 }
 ?>
