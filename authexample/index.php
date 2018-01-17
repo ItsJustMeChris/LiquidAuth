@@ -1,6 +1,11 @@
 <?php
-require_once __DIR__ . '/core/core.php';
-require_once __DIR__ . '/users/users_class.php';
+require_once __DIR__ . '/bootstrap.php';
+if (isset($_GET['controller'])) {
+    $controllerName = ucfirst($_GET['controller']).'Controller';
+    $actionName = strtolower($_GET['action']);
+    $controller = new $controllerName;
+    $controller->$actionName();
+}
 $users = new Users;
 ?>
 <html>
@@ -24,7 +29,7 @@ $users = new Users;
                     var data = $(this).serialize()
                     $.ajax({
                       type: 'POST',
-                      url: 'http://localhost/users/logout.php',
+                      url: '/auth/logout',
                       data: data,
                       dataType: 'json',
                       success: function (data) {
@@ -79,7 +84,7 @@ $users = new Users;
                     var data = $(this).serialize()
                     $.ajax({
                       type: 'POST',
-                      url: 'http://localhost/users/login.php',
+                      url: '/auth/login',
                       data: data,
                       dataType: 'json',
                       success: function (data) {
@@ -120,7 +125,7 @@ $users = new Users;
                     var data = $(this).serialize()
                     $.ajax({
                       type: 'POST',
-                      url: 'http://localhost/users/register.php',
+                      url: '/auth/register',
                       data: data,
                       dataType: 'json',
                       success: function (data) {

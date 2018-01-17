@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . '/../core/core.php';
-require_once __DIR__ . '/../database/database_class.php';
 class Users {
     public $loggedInError = 'Already Logged In';
     public $invalidLoginError = 'Invalid Username or Password';
@@ -96,7 +94,5 @@ class Users {
             die(json_encode(["success" => $this->userCreatedMessage]));
         }
     }
-
 }
-
 ?>
