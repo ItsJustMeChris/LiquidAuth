@@ -1,4 +1,5 @@
 <?php
+namespace LiquidAuth\Classes;
 class Users {
     public $loggedInError = 'Already Logged In';
     public $invalidLoginError = 'Invalid Username or Password';
@@ -37,7 +38,7 @@ class Users {
     }
 
     function validateSession($f_userid, $f_sessionkey) {
-        $db = new Database;
+        $db = new \LiquidAuth\Classes\Database;
         $sessionKey = $db->escape($f_sessionkey);
         $userID = intval($f_userid);
         $result = $db->query("SELECT * FROM `users` WHERE `id`='$userID' AND `session`='$sessionKey'");
@@ -59,7 +60,7 @@ class Users {
     }
 
     function login($f_username, $f_password) {
-        $db = new Database;
+        $db = new \LiquidAuth\Classes\Database;
         $username = $db->escape($f_username);
         $randomString = $this->generateSessionString();
         $result = $db->query("SELECT * FROM `users` WHERE UPPER(`username`)=UPPER('$username') OR UPPER(`email`)=UPPER('$username')");
@@ -80,7 +81,7 @@ class Users {
     }
 
     function register($f_username, $f_email, $f_password) {
-        $db = new Database;
+        $db = new \LiquidAuth\Classes\Database;
         $email = $db->escape($_POST['email']);
         $username = $db->escape($_POST['username']);
         $passwordHash = $db->escape(password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 11]));

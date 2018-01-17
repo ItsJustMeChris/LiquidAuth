@@ -1,9 +1,10 @@
 <?php
+namespace LiquidAuth\Controllers;
 class AuthController
 {
     function login()
     {
-        $users = new Users;
+        $users = new \LiquidAuth\Classes\Users;
         if ($users->loggedIn()) {
             die(json_encode(["error" => $users->loggedInError]));
         }
@@ -19,13 +20,13 @@ class AuthController
 
     function logout()
     {
-        $users = new Users;
+        $users = new \LiquidAuth\Classes\Users;
         $users->logOut();
     }
 
     function register()
     {
-        $users = new Users;
+        $users = new \LiquidAuth\Classes\Users;
         if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['password'])) {
             if (strlen($_POST['email']) < 5 || strlen($_POST['username']) < 5 || strlen($_POST['password']) < 5) {
                 die(json_encode(["error" => $users->registerError]));

@@ -1,4 +1,5 @@
 <?php
+namespace LiquidAuth\Classes;
 class Database {
     public $loggedInError = 'Already Logged In';
     public $invalidLoginError = 'Invalid Username or Password';
@@ -9,17 +10,17 @@ class Database {
     private $db = 'database';
 
     function query($f_query) {
-        $mysqli = new mysqli($this->host,$this->user,$this->pass,$this->db) or die($mysqli->error);
+        $mysqli = mysqli_connect($this->host,$this->user,$this->pass,$this->db);
         return $mysqli->query($f_query);
     }
 
     function escape($f_string) {
-        $mysqli = new mysqli($this->host,$this->user,$this->pass,$this->db) or die($mysqli->error);
+        $mysqli = mysqli_connect($this->host,$this->user,$this->pass,$this->db);
         return $mysqli->escape_string($f_string);
     }
 
     function setup() {
-        $mysqli = new mysqli($this->host,$this->user,$this->pass,$this->db) or die($mysqli->error);
+        $mysqli = mysqli_connect($this->host,$this->user,$this->pass,$this->db);
         $mysqli->query('
          CREATE TABLE IF NOT EXISTS `userauth`.`users`
          (

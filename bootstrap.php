@@ -1,12 +1,22 @@
 <?php
 spl_autoload_register(function ($class) {
-    $classes = 'classes/' . strtolower($class) . '.class.php';
-    if (file_exists($classes)) {
-        require_once $classes;
+
+    $prefix = 'LiquidAuth\\';
+
+    $base_dir = __DIR__ . '/src/';
+
+    $len = strlen($prefix);
+    if (strncmp($prefix, $class, $len) !== 0) {
+        return;
     }
-    $controllers = 'controllers/' . strtolower($class) . '.php';
-    if (file_exists($controllers)) {
-        require_once $controllers;
+
+    $relative_class = substr($class, $len);
+
+    $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+
+    if (file_exists($file)) {
+        require $file;
     }
 });
+
 ?>

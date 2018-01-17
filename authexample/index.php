@@ -1,12 +1,15 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once __DIR__ . '/bootstrap.php';
 if (isset($_GET['controller'])) {
-    $controllerName = ucfirst($_GET['controller']).'Controller';
+    $controllerName = '\LiquidAuth\Controllers\\'.ucfirst($_GET['controller']).'Controller';
     $actionName = strtolower($_GET['action']);
     $controller = new $controllerName;
     $controller->$actionName();
 }
-$users = new Users;
+$users = new \LiquidAuth\Classes\Users;
 ?>
 <html>
     <head>
