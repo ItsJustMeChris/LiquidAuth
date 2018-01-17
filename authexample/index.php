@@ -3,165 +3,28 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 require_once __DIR__ . '/bootstrap.php';
-if (isset($_GET['controller'])) {
-    $controllerName = '\LiquidAuth\Controllers\\'.ucfirst($_GET['controller']).'Controller';
-    $actionName = strtolower($_GET['action']);
+define('TEMPLATES_PATH', 'src/templates/');
+$params = explode("/", $_GET['query']);
+session_start();
+// [0] = view [1] = controller [2] = action
+// users/auth/register
+// users/view/user
+if (isset($params[1]) && !isset($params[2])) {
+    die("Non action controller catch");
+}
+
+if (isset($params[1]) && isset($params[2])) {
+    $controllerName = '\LiquidAuth\Controllers\\'.ucfirst($params[1]).'Controller';
+    $actionName = strtolower($params[2]);
+    if (!class_exists($controllerName)) {
+        die("Controller doesn't exist");
+    }
     $controller = new $controllerName;
     $controller->$actionName();
 }
-$users = new \LiquidAuth\Classes\Users;
+
+$view = new \LiquidAuth\Controllers\ViewController;
+
+$view->setView($params);
+
 ?>
-<html>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    </head>
-    <body>
-        <?php if ($users->loggedIn()): ?>
-        <div> Welcome <?php echo $users->currentUserID(); ?> </div>
-        <form id="logout_1" method="post">
-            <input class="btn btn-default icon-btn save" type="submit" type="submit" name="logout" value="Logout" />
-        </form>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(document).on('submit', '[id^=logout_]', function (e) {
-                    e.preventDefault();
-                    var data = $(this).serialize()
-                    $.ajax({
-                      type: 'POST',
-                      url: '/auth/logout',
-                      data: data,
-                      dataType: 'json',
-                      success: function (data) {
-                        if (data.error) {
-                              swal({
-                                  title: 'Error!',
-                                  text: data.error,
-                                  timer: 1200,
-                                  type: 'error',
-                                  showCancelButton: false,
-                                  showConfirmButton: false
-                              })
-                        } else {
-                            swal({
-                                title: 'Logged Out!',
-                                text: data.success,
-                                timer: 1200,
-                                type: 'success',
-                                showCancelButton: false,
-                                showConfirmButton: false
-                            })
-                        }
-                      },
-                    error: function (data) {
-                            console.log(data)
-                            swal("ERR!", "Something blew up.", "error")
-                        }
-                    })
-                    return false
-                })
-            })
-        </script>
-        <?php else: ?>
-        <div> Login </div>
-        <form id="login_1" method="post">
-            <input type="username" name="username" placeholder="Enter Username"><br>
-            <input type="password" name="password" placeholder="Enter Password"><br>
-            <input class="btn btn-default icon-btn save" type="submit" type="submit" name="login" value="Login" />
-        </form>
-        </br>
-        <div> Register </div>
-        <form id="register_1" method="post">
-            <input type="username" name="username" placeholder="Enter Username"><br>
-            <input type="email" name="email" placeholder="Enter Email"><br>
-            <input type="password" name="password" placeholder="Enter Password"><br>
-            <input class="btn btn-default icon-btn save" type="submit" type="submit" name="login" value="Login" />
-        </form>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(document).on('submit', '[id^=login_]', function (e) {
-                    e.preventDefault();
-                    var data = $(this).serialize()
-                    $.ajax({
-                      type: 'POST',
-                      url: '/auth/login',
-                      data: data,
-                      dataType: 'json',
-                      success: function (data) {
-                        if (data.error) {
-                              swal({
-                                  title: 'Error!',
-                                  text: data.error,
-                                  timer: 1200,
-                                  type: 'error',
-                                  showCancelButton: false,
-                                  showConfirmButton: false
-                              })
-                        } else {
-                            swal({
-                                title: 'Logged In!',
-                                text: data.success,
-                                timer: 1200,
-                                type: 'success',
-                                showCancelButton: false,
-                                showConfirmButton: false
-                            })
-                        }
-                      },
-                      error: function (data) {
-                          console.log(data)
-
-                        swal("ERR!", "Something blew up.", "error")
-                      }
-                    })
-                    return false
-                })
-            })
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(document).on('submit', '[id^=register_]', function (e) {
-                    e.preventDefault();
-                    var data = $(this).serialize()
-                    $.ajax({
-                      type: 'POST',
-                      url: '/auth/register',
-                      data: data,
-                      dataType: 'json',
-                      success: function (data) {
-                        if (data.error) {
-                              swal({
-                                  title: 'Error!',
-                                  text: data.error,
-                                  timer: 1200,
-                                  type: 'error',
-                                  showCancelButton: false,
-                                  showConfirmButton: false
-                              })
-                        } else {
-                            swal({
-                                title: 'Registered!',
-                                text: data.success,
-                                timer: 1200,
-                                type: 'success',
-                                showCancelButton: false,
-                                showConfirmButton: false
-                            })
-                        }
-                      },
-                      error: function (data) {
-                          console.log(data)
-
-                        swal("ERR!", "Something blew up.", "error")
-                      }
-                    })
-                    return false
-                })
-            })
-        </script>
-        <?php endif; ?>
-    </body>
-</html>
