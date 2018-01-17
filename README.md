@@ -67,5 +67,9 @@ TODO
 	Automate installation.  
 	Revive config file for database login and such. 
 	More features, backend admin panel?
+	Improve session security
+	-Session Keys
+	-CSRF Tokens
+	-Cookies in the future
 
   
