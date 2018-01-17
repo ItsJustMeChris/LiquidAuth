@@ -17,5 +17,21 @@ class Database {
         $mysqli = new mysqli($this->host,$this->user,$this->pass,$this->db) or die($mysqli->error);
         return $mysqli->escape_string($f_string);
     }
+
+    function setup() {
+        $mysqli = new mysqli($this->host,$this->user,$this->pass,$this->db) or die($mysqli->error);
+        $mysqli->query('
+         CREATE TABLE IF NOT EXISTS `userauth`.`users`
+         (
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `username` VARCHAR(50) NOT NULL,
+            `email` VARCHAR(100) NOT NULL,
+            `password` VARCHAR(100) NOT NULL,
+            `session` VARCHAR(100) NOT NULL DEFAULT 0,
+            `regdate` datetime NOT NULL,
+            `active` BOOL NOT NULL DEFAULT 0,
+         PRIMARY KEY (`id`)
+         );') or die($mysqli->error);
+    }
 }
 ?>

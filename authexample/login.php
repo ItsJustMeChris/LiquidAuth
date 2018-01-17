@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/core/core.php';
-
+require_once __DIR__ . '/users/users_class.php';
+$users = new Users;
 ?>
 <html>
     <head>
@@ -11,8 +12,8 @@ require_once __DIR__ . '/core/core.php';
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     </head>
     <body>
-        <?php if ($_SESSION && $_SESSION['userid']): ?>
-        <div> Welcome <?php echo $_SESSION['userid']; ?> </div>
+        <?php if ($users->loggedIn()): ?>
+        <div> Welcome <?php echo $users->currentUserID(); ?> </div>
         <form id="logout_1" method="post">
             <input class="btn btn-default icon-btn save" type="submit" type="submit" name="logout" value="Logout" />
         </form>
