@@ -1,0 +1,26 @@
+html, body {
+    width:  100%;
+    height:  100%;
+    margin:  0;
+}
+nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+    background: #333 !important;
+    color: #fff !important;
+}
+
+a.navbar-brand {
+    color: #fff !important;
+}
+
+a.nav-link {
+    color: #fff !important;
+}
+.footer {
+    background:  #333;
+    height:  50px;
+    color:  #fff;
+    line-height: 40px;
+    padding:  5px;
+    bottom:0;
+    width:  100%;
+}

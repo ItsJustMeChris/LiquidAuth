@@ -38,6 +38,9 @@ class Users {
 
     function logOut() {
         if ($this->loggedIn()) {
+            session_regenerate_id(true);
+            session_destroy();
+            $_SESSION = array();
             die(json_encode(["success" => $this->logoutMessage]));
         } else {
             die(json_encode(["error" => $this->notLoggedInError]));

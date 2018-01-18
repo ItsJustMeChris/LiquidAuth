@@ -1,26 +1,49 @@
-<html>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    </head>
-    <body>
-        <div> Login </div>
-        <form id="login_1" method="post">
-            <input type="username" name="username" placeholder="Enter Username"><br>
-            <input type="password" name="password" placeholder="Enter Password"><br>
-            <input class="btn btn-default icon-btn save" type="submit" type="submit" name="login" value="Login" />
-        </form>
-        </br>
-        <div> Register </div>
-        <form id="register_1" method="post">
-            <input type="username" name="username" placeholder="Enter Username"><br>
-            <input type="email" name="email" placeholder="Enter Email"><br>
-            <input type="password" name="password" placeholder="Enter Password"><br>
-            <input class="btn btn-default icon-btn save" type="submit" type="submit" name="login" value="Login" />
-        </form>
+<div class="row">
+  <div class="col">
+      <div class="card mt-5 mb-5">
+          <div class="card-header">
+              Login
+          </div>
+          <div class="card-body">
+      <form id="login_1" method="post">
+          <div class="form-group">
+              <label for="username">Username</label>
+              <input type="username" id="username" class="form-control" name="username" placeholder="Enter Username"><br>
+          </div>
+          <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password"><br>
+          </div>
+          <input class="btn btn-primary" type="submit" type="submit" name="login" value="Login" />
+      </form>
+  </div>
+  </div>
+</div>
+  <div class="col">
+      <div class="card mt-5 mb-5">
+          <div class="card-header">
+              Register
+          </div>
+          <div class="card-body">
+      <form id="register_1" method="post">
+          <div class="form-group">
+              <label for="username">Username</label>
+              <input type="username" id="username" class="form-control" name="username" placeholder="Enter Username"><br>
+          </div>
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input type="username" id="email" class="form-control" name="username" placeholder="Enter Email"><br>
+          </div>
+          <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password"><br>
+          </div>
+          <input class="btn btn-primary" type="submit" type="submit" name="register" value="Register" />
+      </form>
+  </div>
+  </div>
+</div>
+</div>
         <script type="text/javascript">
             $(document).ready(function() {
                 $(document).on('submit', '[id^=login_]', function (e) {
@@ -101,5 +124,3 @@
                 })
             })
         </script>
-    </body>
-</html>
